@@ -14,79 +14,43 @@
     background: #1c1c2e; border-bottom: 1px solid #2a2a44; flex-wrap: wrap; flex-shrink: 0;
   }
   #top-bar label { font-size: 12px; color: #aaa; }
-  #top-bar input[type=number] {
-    width: 52px; font-size: 12px; padding: 3px 5px;
-    border: 1px solid #3a3a55; border-radius: 4px;
-    background: #111122; color: #e0e0e0;
-  }
-  #top-bar button {
-    font-size: 12px; padding: 4px 10px; border: 1px solid #3a3a55;
-    border-radius: 4px; background: #1c1c2e; color: #e0e0e0; cursor: pointer;
-  }
+  #top-bar input[type=number] { width: 52px; font-size: 12px; padding: 3px 5px; border: 1px solid #3a3a55; border-radius: 4px; background: #111122; color: #e0e0e0; }
+  #top-bar button { font-size: 12px; padding: 4px 10px; border: 1px solid #3a3a55; border-radius: 4px; background: #1c1c2e; color: #e0e0e0; cursor: pointer; }
   #top-bar button:hover { background: #2a2a44; }
   .sep { width: 1px; height: 22px; background: #2a2a44; margin: 0 4px; }
   #sel-row { display: flex; gap: 5px; align-items: center; }
   #sel-label { font-size: 12px; color: #7ab4f5; font-weight: 600; }
-  .act-btn {
-    font-size: 11px; padding: 3px 8px; border: 1px solid #3a3a55;
-    border-radius: 4px; background: #1c1c2e; color: #e0e0e0; cursor: pointer; display: none;
-  }
+  .act-btn { font-size: 11px; padding: 3px 8px; border: 1px solid #3a3a55; border-radius: 4px; background: #1c1c2e; color: #e0e0e0; cursor: pointer; display: none; }
   .act-btn:hover { background: #2a2a44; }
   .act-btn.danger { border-color: #c0392b; color: #e74c3c; }
   .act-btn.danger:hover { background: #2a1010; }
 
   #main { display: flex; flex: 1; overflow: hidden; }
 
-  #sidebar {
-    width: 200px; min-width: 200px; border-right: 1px solid #2a2a44;
-    background: #141426; display: flex; flex-direction: column; overflow-y: auto;
-  }
-  #sidebar-inner { padding: 8px; display: flex; flex-direction: column; gap: 5px; flex: 1; }
-  #sidebar h3 {
-    font-size: 10px; font-weight: 600; color: #666; text-transform: uppercase;
-    letter-spacing: 0.07em; margin: 6px 0 2px;
-  }
-  .item-btn {
-    display: flex; align-items: center; gap: 7px; padding: 6px 7px;
-    border: 1px solid #2a2a44; border-radius: 5px; cursor: pointer;
-    background: #1a1a30; color: #ccc; font-size: 12px; width: 100%;
-    text-align: left; transition: background 0.1s;
-  }
+  #sidebar { width: 215px; min-width: 215px; border-right: 1px solid #2a2a44; background: #141426; display: flex; flex-direction: column; overflow-y: auto; }
+  #sidebar-inner { padding: 8px; display: flex; flex-direction: column; gap: 5px; }
+  #sidebar h3 { font-size: 10px; font-weight: 600; color: #666; text-transform: uppercase; letter-spacing: 0.07em; margin: 6px 0 2px; }
+  .item-btn { display: flex; align-items: center; gap: 7px; padding: 6px 7px; border: 1px solid #2a2a44; border-radius: 5px; cursor: pointer; background: #1a1a30; color: #ccc; font-size: 12px; width: 100%; text-align: left; transition: background 0.1s; }
   .item-btn:hover { background: #22223a; }
   .item-btn.selected { border-color: #378ADD; background: #0d2040; color: #7ab4f5; }
   .item-swatch { width: 13px; height: 13px; border-radius: 3px; flex-shrink: 0; }
   .item-label { flex: 1; }
-  .item-dims { font-size: 10px; color: #555; }
+  .item-dims { font-size: 10px; color: #555; white-space: nowrap; }
 
-  #size-panel {
-    margin: 0 8px 8px; padding: 9px; background: #0d0d20;
-    border: 1px solid #2a2a44; border-radius: 6px; display: none;
-  }
+  #size-panel { margin: 0 8px 8px; padding: 9px; background: #0d0d20; border: 1px solid #2a2a44; border-radius: 6px; display: none; }
   #size-panel.visible { display: block; }
   #size-panel .sp-title { font-size: 11px; font-weight: 600; color: #ccc; margin-bottom: 7px; }
   #size-panel .sp-row { display: flex; align-items: center; gap: 5px; margin-bottom: 5px; font-size: 11px; color: #888; }
   #size-panel .sp-row label { width: 14px; color: #aaa; }
-  #size-panel .sp-row input {
-    width: 50px; font-size: 11px; padding: 2px 5px;
-    border: 1px solid #3a3a55; border-radius: 3px;
-    background: #111122; color: #e0e0e0;
-  }
+  #size-panel .sp-row input { width: 54px; font-size: 11px; padding: 2px 5px; border: 1px solid #3a3a55; border-radius: 3px; background: #111122; color: #e0e0e0; }
   #size-panel .sp-hint { font-size: 10px; color: #555; margin-top: 3px; }
-  #place-btn {
-    width: 100%; font-size: 12px; padding: 5px 0; border: 1px solid #378ADD;
-    border-radius: 5px; background: #0d2040; color: #7ab4f5; cursor: pointer;
-    font-weight: 600; margin-top: 6px;
-  }
+  #place-btn { width: 100%; font-size: 12px; padding: 5px 0; border: 1px solid #378ADD; border-radius: 5px; background: #0d2040; color: #7ab4f5; cursor: pointer; font-weight: 600; margin-top: 6px; }
   #place-btn:hover { background: #1a3a60; }
 
   #canvas-wrap { flex: 1; position: relative; background: #0c0c1a; }
   canvas { display: block; width: 100% !important; height: 100% !important; }
 
-  #info-bar {
-    padding: 7px 14px; background: #1c1c2e; border-top: 1px solid #2a2a44;
-    display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
-    font-size: 12px; color: #888; flex-shrink: 0;
-  }
+  #info-bar { padding: 7px 14px; background: #1c1c2e; border-top: 1px solid #2a2a44; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; font-size: 12px; color: #888; flex-shrink: 0; }
   .fill-bar-wrap { flex: 1; min-width: 100px; display: flex; align-items: center; gap: 8px; }
   #fill-bar-bg { flex: 1; height: 5px; background: #2a2a44; border-radius: 3px; overflow: hidden; }
   #fill-bar { height: 100%; background: #1D9E75; border-radius: 3px; transition: width 0.3s; }
@@ -118,27 +82,27 @@
   <div id="sidebar">
     <div id="sidebar-inner">
       <h3>Boxes</h3>
-      <button class="item-btn" data-type="box-s"><span class="item-swatch" style="background:#F0997B"></span><span class="item-label">Small Box</span><span class="item-dims">1.5×1.5×1.5</span></button>
-      <button class="item-btn" data-type="box-m"><span class="item-swatch" style="background:#D85A30"></span><span class="item-label">Medium Box</span><span class="item-dims">2×2×2</span></button>
-      <button class="item-btn" data-type="box-l"><span class="item-swatch" style="background:#993C1D"></span><span class="item-label">Large Box</span><span class="item-dims">3×2×2.5</span></button>
+      <button class="item-btn" data-type="box-s"><span class="item-swatch" style="background:#F0997B"></span><span class="item-label">Small Box</span><span class="item-dims">18×18×18"</span></button>
+      <button class="item-btn" data-type="box-m"><span class="item-swatch" style="background:#D85A30"></span><span class="item-label">Medium Box</span><span class="item-dims">24×24×24"</span></button>
+      <button class="item-btn" data-type="box-l"><span class="item-swatch" style="background:#993C1D"></span><span class="item-label">Large Box</span><span class="item-dims">36×24×30"</span></button>
       <h3>Furniture</h3>
-      <button class="item-btn" data-type="sofa"><span class="item-swatch" style="background:#5DCAA5"></span><span class="item-label">Sofa</span><span class="item-dims">7×3×3</span></button>
-      <button class="item-btn" data-type="bed-q"><span class="item-swatch" style="background:#7F77DD"></span><span class="item-label">Queen Bed</span><span class="item-dims">6.5×5×3</span></button>
-      <button class="item-btn" data-type="bed-t"><span class="item-swatch" style="background:#AFA9EC"></span><span class="item-label">Twin Bed</span><span class="item-dims">6.5×3×3</span></button>
-      <button class="item-btn" data-type="dresser"><span class="item-swatch" style="background:#FAC775"></span><span class="item-label">Dresser</span><span class="item-dims">4×2×4</span></button>
-      <button class="item-btn" data-type="desk"><span class="item-swatch" style="background:#B5D4F4"></span><span class="item-label">Desk</span><span class="item-dims">5×2.5×3</span></button>
-      <button class="item-btn" data-type="table"><span class="item-swatch" style="background:#C0DD97"></span><span class="item-label">Dining Table</span><span class="item-dims">5×3×2.5</span></button>
-      <button class="item-btn" data-type="chair"><span class="item-swatch" style="background:#9FE1CB"></span><span class="item-label">Chair</span><span class="item-dims">2×2×3</span></button>
-      <button class="item-btn" data-type="fridge"><span class="item-swatch" style="background:#85B7EB"></span><span class="item-label">Fridge</span><span class="item-dims">3×3×6</span></button>
-      <button class="item-btn" data-type="washer"><span class="item-swatch" style="background:#D3D1C7"></span><span class="item-label">Washer</span><span class="item-dims">2.5×2.5×4</span></button>
-      <button class="item-btn" data-type="tv"><span class="item-swatch" style="background:#888780"></span><span class="item-label">TV 55"</span><span class="item-dims">5×0.4×3</span></button>
+      <button class="item-btn" data-type="sofa"><span class="item-swatch" style="background:#5DCAA5"></span><span class="item-label">Sofa</span><span class="item-dims">84×36×36"</span></button>
+      <button class="item-btn" data-type="bed-q"><span class="item-swatch" style="background:#7F77DD"></span><span class="item-label">Queen Bed</span><span class="item-dims">80×60×36"</span></button>
+      <button class="item-btn" data-type="bed-t"><span class="item-swatch" style="background:#AFA9EC"></span><span class="item-label">Twin Bed</span><span class="item-dims">80×38×36"</span></button>
+      <button class="item-btn" data-type="dresser"><span class="item-swatch" style="background:#FAC775"></span><span class="item-label">Dresser</span><span class="item-dims">48×24×48"</span></button>
+      <button class="item-btn" data-type="desk"><span class="item-swatch" style="background:#B5D4F4"></span><span class="item-label">Desk</span><span class="item-dims">60×30×36"</span></button>
+      <button class="item-btn" data-type="table"><span class="item-swatch" style="background:#C0DD97"></span><span class="item-label">Dining Table</span><span class="item-dims">60×36×30"</span></button>
+      <button class="item-btn" data-type="chair"><span class="item-swatch" style="background:#9FE1CB"></span><span class="item-label">Chair</span><span class="item-dims">24×24×36"</span></button>
+      <button class="item-btn" data-type="fridge"><span class="item-swatch" style="background:#85B7EB"></span><span class="item-label">Fridge</span><span class="item-dims">36×36×72"</span></button>
+      <button class="item-btn" data-type="washer"><span class="item-swatch" style="background:#D3D1C7"></span><span class="item-label">Washer</span><span class="item-dims">30×30×48"</span></button>
+      <button class="item-btn" data-type="tv"><span class="item-swatch" style="background:#888780"></span><span class="item-label">TV 55"</span><span class="item-dims">60×5×36"</span></button>
     </div>
     <div id="size-panel">
       <div class="sp-title" id="sp-title">Customize size</div>
-      <div class="sp-row"><label>W</label><input type="number" id="sp-w" min="0.5" max="20" step="0.5"> ft</div>
-      <div class="sp-row"><label>D</label><input type="number" id="sp-d" min="0.5" max="20" step="0.5"> ft</div>
-      <div class="sp-row"><label>H</label><input type="number" id="sp-h" min="0.5" max="20" step="0.5"> ft</div>
-      <div class="sp-hint">Edit to override defaults</div>
+      <div class="sp-row"><label>W</label><input type="number" id="sp-w" min="1" max="300" step="1"> in</div>
+      <div class="sp-row"><label>D</label><input type="number" id="sp-d" min="1" max="300" step="1"> in</div>
+      <div class="sp-row"><label>H</label><input type="number" id="sp-h" min="1" max="300" step="1"> in</div>
+      <div class="sp-hint">Edit inches to override defaults</div>
       <button id="place-btn">Click pod floor to place ↓</button>
     </div>
   </div>
@@ -152,34 +116,34 @@
     <div id="fill-bar-bg"><div id="fill-bar" style="width:0%"></div></div>
     <span id="fill-pct">0%</span>
   </div>
-  <span id="hint">Select item → edit size → click pod floor to place | Right-click drag = orbit | Scroll = zoom</span>
+  <span id="hint">Select item → set inches → click pod to place | Right-click drag = orbit | Scroll = zoom | Delete key = remove selected</span>
 </div>
 
 <script>
 const DEFS = {
-  'box-s':  {label:'Small Box',   w:1.5, d:1.5, h:1.5, color:0xF0997B},
-  'box-m':  {label:'Medium Box',  w:2,   d:2,   h:2,   color:0xD85A30},
-  'box-l':  {label:'Large Box',   w:3,   d:2,   h:2.5, color:0x993C1D},
-  'sofa':   {label:'Sofa',        w:7,   d:3,   h:3,   color:0x5DCAA5},
-  'bed-q':  {label:'Queen Bed',   w:6.5, d:5,   h:3,   color:0x7F77DD},
-  'bed-t':  {label:'Twin Bed',    w:6.5, d:3,   h:3,   color:0xAFA9EC},
-  'dresser':{label:'Dresser',     w:4,   d:2,   h:4,   color:0xFAC775},
-  'desk':   {label:'Desk',        w:5,   d:2.5, h:3,   color:0xB5D4F4},
-  'table':  {label:'Dining Table',w:5,   d:3,   h:2.5, color:0xC0DD97},
-  'chair':  {label:'Chair',       w:2,   d:2,   h:3,   color:0x9FE1CB},
-  'fridge': {label:'Fridge',      w:3,   d:3,   h:6,   color:0x85B7EB},
-  'washer': {label:'Washer',      w:2.5, d:2.5, h:4,   color:0xD3D1C7},
-  'tv':     {label:'TV',          w:5,   d:0.4, h:3,   color:0x888780},
+  'box-s':  {label:'Small Box',   w:18,  d:18,  h:18,  color:0xF0997B},
+  'box-m':  {label:'Medium Box',  w:24,  d:24,  h:24,  color:0xD85A30},
+  'box-l':  {label:'Large Box',   w:36,  d:24,  h:30,  color:0x993C1D},
+  'sofa':   {label:'Sofa',        w:84,  d:36,  h:36,  color:0x5DCAA5},
+  'bed-q':  {label:'Queen Bed',   w:80,  d:60,  h:36,  color:0x7F77DD},
+  'bed-t':  {label:'Twin Bed',    w:80,  d:38,  h:36,  color:0xAFA9EC},
+  'dresser':{label:'Dresser',     w:48,  d:24,  h:48,  color:0xFAC775},
+  'desk':   {label:'Desk',        w:60,  d:30,  h:36,  color:0xB5D4F4},
+  'table':  {label:'Dining Table',w:60,  d:36,  h:30,  color:0xC0DD97},
+  'chair':  {label:'Chair',       w:24,  d:24,  h:36,  color:0x9FE1CB},
+  'fridge': {label:'Fridge',      w:36,  d:36,  h:72,  color:0x85B7EB},
+  'washer': {label:'Washer',      w:30,  d:30,  h:48,  color:0xD3D1C7},
+  'tv':     {label:'TV',          w:60,  d:5,   h:36,  color:0x888780},
 };
 
-const SC = 0.5;
+const SC = 0.5 / 12;
 let podL=16, podW=8, podH=8;
 let selectedType=null, selectedObj=null;
-let pendingW=0, pendingD=0, pendingH=0;
 let placedItems=[];
 let isOrbiting=false, prevMouse={x:0,y:0};
 let camTheta=0.8, camPhi=0.55, camRadius=22;
 let camTarget=new THREE.Vector3(0,2,0);
+const labelSprites=new Map();
 
 const wrap=document.getElementById('canvas-wrap');
 const canvas=document.getElementById('c');
@@ -189,19 +153,17 @@ renderer.shadowMap.enabled=true;
 
 const scene=new THREE.Scene();
 scene.background=new THREE.Color(0x0c0c1a);
-scene.fog=new THREE.FogExp2(0x0c0c1a,0.014);
+scene.fog=new THREE.FogExp2(0x0c0c1a,0.013);
 
 const camera=new THREE.PerspectiveCamera(45,1,0.1,300);
 
-scene.add(new THREE.AmbientLight(0xffffff,0.6));
+scene.add(new THREE.AmbientLight(0xffffff,0.65));
 const dir=new THREE.DirectionalLight(0xffffff,0.9);
 dir.position.set(12,22,12); dir.castShadow=true; scene.add(dir);
 const fill=new THREE.DirectionalLight(0x4466bb,0.3);
 fill.position.set(-10,6,-10); scene.add(fill);
 
-const groundGeo=new THREE.PlaneGeometry(100,100);
-const groundMat=new THREE.MeshStandardMaterial({color:0x0d0d1e,roughness:0.95});
-const ground=new THREE.Mesh(groundGeo,groundMat);
+const ground=new THREE.Mesh(new THREE.PlaneGeometry(100,100),new THREE.MeshStandardMaterial({color:0x0d0d1e,roughness:0.95}));
 ground.rotation.x=-Math.PI/2; ground.receiveShadow=true; scene.add(ground);
 scene.add(new THREE.GridHelper(100,100,0x1e1e38,0x17172e));
 
@@ -210,93 +172,137 @@ let floorMesh=null;
 
 function buildPod(){
   while(podGroup.children.length) podGroup.remove(podGroup.children[0]);
-  const L=podL*SC, W=podW*SC, H=podH*SC, tk=0.05;
+  const L=podL*12*SC, W=podW*12*SC, H=podH*12*SC, tk=0.05;
   const wallMat=new THREE.MeshStandardMaterial({color:0xE8C97A,transparent:true,opacity:0.15,side:THREE.DoubleSide,roughness:0.6});
   const edgeMat=new THREE.LineBasicMaterial({color:0xF5DFA0});
-  [[L,H,tk,0,H/2,-W/2],[L,H,tk,0,H/2,W/2],[tk,H,W,-L/2,H/2,0],
-   [L,tk,W,0,H,0]].forEach(([pw,ph,pd,x,y,z])=>{
+  [[L,H,tk,0,H/2,-W/2],[L,H,tk,0,H/2,W/2],[tk,H,W,-L/2,H/2,0],[L,tk,W,0,H,0]].forEach(([pw,ph,pd,x,y,z])=>{
     const g=new THREE.BoxGeometry(pw,ph,pd);
     const m=new THREE.Mesh(g,wallMat); m.position.set(x,y,z); podGroup.add(m);
     const el=new THREE.LineSegments(new THREE.EdgesGeometry(g),edgeMat); el.position.set(x,y,z); podGroup.add(el);
   });
   const fg=new THREE.BoxGeometry(L-0.05,tk,W-0.05);
-  const fm=new THREE.MeshStandardMaterial({color:0x5a4a2e,roughness:0.9});
-  floorMesh=new THREE.Mesh(fg,fm); floorMesh.position.set(0,tk/2,0);
-  floorMesh.receiveShadow=true; floorMesh.name='floor'; podGroup.add(floorMesh);
+  floorMesh=new THREE.Mesh(fg,new THREE.MeshStandardMaterial({color:0x5a4a2e,roughness:0.9}));
+  floorMesh.position.set(0,tk/2,0); floorMesh.receiveShadow=true; floorMesh.name='floor';
+  podGroup.add(floorMesh);
   camTarget.set(0,H/2,0);
   updateFillUI();
 }
 
-function getRotatedDims(wFt,dFt,hFt,rotY){
-  const wS=wFt*SC, dS=dFt*SC, hS=hFt*SC;
+function makeLabel(text, colorHex){
+  const cw=256, ch=64;
+  const cv=document.createElement('canvas'); cv.width=cw; cv.height=ch;
+  const ctx=cv.getContext('2d');
+  const hex='#'+colorHex.toString(16).padStart(6,'0');
+  ctx.fillStyle=hex+'cc';
+  const r=12;
+  ctx.beginPath();
+  ctx.moveTo(r,0); ctx.lineTo(cw-r,0);
+  ctx.quadraticCurveTo(cw,0,cw,r); ctx.lineTo(cw,ch-r);
+  ctx.quadraticCurveTo(cw,ch,cw-r,ch); ctx.lineTo(r,ch);
+  ctx.quadraticCurveTo(0,ch,0,ch-r); ctx.lineTo(0,r);
+  ctx.quadraticCurveTo(0,0,r,0); ctx.closePath(); ctx.fill();
+  ctx.fillStyle='#ffffff';
+  ctx.font='bold 26px Arial,sans-serif';
+  ctx.textAlign='center'; ctx.textBaseline='middle';
+  ctx.shadowColor='rgba(0,0,0,0.6)'; ctx.shadowBlur=4;
+  ctx.fillText(text, cw/2, ch/2);
+  const tex=new THREE.CanvasTexture(cv);
+  const mat=new THREE.SpriteMaterial({map:tex,transparent:true,depthTest:false});
+  const sprite=new THREE.Sprite(mat);
+  sprite.scale.set(1.2,0.3,1);
+  return sprite;
+}
+
+function getRotatedDims(wIn,dIn,hIn,rotY){
+  const w=wIn*SC, d=dIn*SC, h=hIn*SC;
   const r=((rotY||0)%(Math.PI*2)+Math.PI*2)%(Math.PI*2);
   const swapped=(r>Math.PI/4&&r<3*Math.PI/4)||(r>5*Math.PI/4&&r<7*Math.PI/4);
-  return swapped ? {w:dS,d:wS,h:hS} : {w:wS,d:dS,h:hS};
+  return swapped?{w:d,d:w,h}:{w,d,h};
 }
 
 function getStackHeight(cx,cz,ew,ed,excludeMesh){
-  const tk=0.05;
-  let maxTop=tk;
+  let maxTop=0.05;
   placedItems.forEach(m=>{
     if(m===excludeMesh) return;
     const ud=m.userData;
-    const dims=getRotatedDims(ud.wFt,ud.dFt,ud.hFt,ud.rotY);
+    const dims=getRotatedDims(ud.wIn,ud.dIn,ud.hIn,ud.rotY);
     const mTop=m.position.y+dims.h/2;
     const ox=Math.abs(cx-m.position.x)-(dims.w/2+ew/2);
     const oz=Math.abs(cz-m.position.z)-(dims.d/2+ed/2);
-    if(ox<-0.05&&oz<-0.05){ if(mTop>maxTop) maxTop=mTop; }
+    if(ox<-0.04&&oz<-0.04){ if(mTop>maxTop) maxTop=mTop; }
   });
   return maxTop;
 }
 
-function makeMesh(wFt,dFt,hFt,color,rotY){
-  const wS=wFt*SC, dS=dFt*SC, hS=hFt*SC;
-  const geo=new THREE.BoxGeometry(wS,hS,dS);
+function makeMesh(wIn,dIn,hIn,color,rotY){
+  const w=wIn*SC, d=dIn*SC, h=hIn*SC;
+  const geo=new THREE.BoxGeometry(w,h,d);
   const mat=new THREE.MeshStandardMaterial({color,roughness:0.5,metalness:0.08});
   const mesh=new THREE.Mesh(geo,mat);
   mesh.castShadow=true; mesh.receiveShadow=true;
-  const el=new THREE.LineSegments(new THREE.EdgesGeometry(geo),new THREE.LineBasicMaterial({color:0xffffff,transparent:true,opacity:0.2}));
-  mesh.add(el);
+  mesh.add(new THREE.LineSegments(new THREE.EdgesGeometry(geo),new THREE.LineBasicMaterial({color:0xffffff,transparent:true,opacity:0.2})));
   mesh.rotation.y=rotY||0;
   return mesh;
 }
 
-function placeItem(type,wFt,dFt,hFt,nx,nz){
-  const def=DEFS[type];
-  const rotY=0;
-  const dims=getRotatedDims(wFt,dFt,hFt,rotY);
-  const L=podL*SC, W=podW*SC;
+function refreshLabels(){
+  const typeCounts={}, totalPerType={};
+  placedItems.forEach(m=>{ totalPerType[m.userData.type]=(totalPerType[m.userData.type]||0)+1; });
+  placedItems.forEach(m=>{
+    const ud=m.userData, t=ud.type;
+    typeCounts[t]=(typeCounts[t]||0)+1;
+    ud.instanceNum=typeCounts[t];
+    const labelText=totalPerType[t]>1 ? ud.def.label+' '+ud.instanceNum : ud.def.label;
+    ud.labelText=labelText;
+    const old=labelSprites.get(m);
+    if(old) scene.remove(old);
+    const dims=getRotatedDims(ud.wIn,ud.dIn,ud.hIn,ud.rotY);
+    const sprite=makeLabel(labelText, ud.colorHex);
+    sprite.position.set(m.position.x, m.position.y+dims.h/2+0.22, m.position.z);
+    scene.add(sprite);
+    labelSprites.set(m,sprite);
+  });
+}
+
+function placeItem(type,wIn,dIn,hIn,nx,nz){
+  const def=DEFS[type], rotY=0;
+  const dims=getRotatedDims(wIn,dIn,hIn,rotY);
+  const L=podL*12*SC, W=podW*12*SC;
   let x=Math.max(-L/2+dims.w/2,Math.min(L/2-dims.w/2,nx));
   let z=Math.max(-W/2+dims.d/2,Math.min(W/2-dims.d/2,nz));
   const stackY=getStackHeight(x,z,dims.w,dims.d,null);
-  const mesh=makeMesh(wFt,dFt,hFt,def.color,rotY);
+  const mesh=makeMesh(wIn,dIn,hIn,def.color,rotY);
   mesh.position.set(x,stackY+dims.h/2,z);
-  mesh.userData={type,wFt,dFt,hFt,rotY,def,color:def.color};
-  scene.add(mesh);
-  placedItems.push(mesh);
-  updateFillUI();
+  mesh.userData={type,wIn,dIn,hIn,rotY,def,colorHex:def.color,instanceNum:0,labelText:''};
+  scene.add(mesh); placedItems.push(mesh);
+  refreshLabels(); updateFillUI();
   return mesh;
+}
+
+function removeItem(mesh){
+  scene.remove(mesh);
+  const sprite=labelSprites.get(mesh);
+  if(sprite) scene.remove(sprite);
+  labelSprites.delete(mesh);
+  placedItems=placedItems.filter(m=>m!==mesh);
+  refreshLabels(); updateFillUI();
 }
 
 function selectObj(obj){
   if(selectedObj&&selectedObj!==obj) selectedObj.material.emissive&&selectedObj.material.emissive.setHex(0);
   selectedObj=obj;
   const sl=document.getElementById('sel-label');
-  const rb=document.getElementById('rot-btn');
-  const db=document.getElementById('del-btn');
+  const rb=document.getElementById('rot-btn'), db=document.getElementById('del-btn');
   if(obj){
     obj.material.emissive.setHex(0x443300);
-    sl.textContent=DEFS[obj.userData.type].label;
+    sl.textContent=obj.userData.labelText||DEFS[obj.userData.type].label;
     rb.style.display=db.style.display='';
-  } else {
-    sl.textContent=''; rb.style.display=db.style.display='none';
-  }
+  } else { sl.textContent=''; rb.style.display=db.style.display='none'; }
 }
 
 function updateFillUI(){
-  const pv=podL*podW*podH;
-  let uv=0;
-  placedItems.forEach(m=>{const u=m.userData; uv+=u.wFt*u.dFt*u.hFt;});
+  const pv=podL*podW*podH; let uv=0;
+  placedItems.forEach(m=>{const u=m.userData; uv+=(u.wIn/12)*(u.dIn/12)*(u.hIn/12);});
   document.getElementById('pod-vol').textContent=pv.toFixed(0);
   document.getElementById('used-vol').textContent=uv.toFixed(1);
   const pct=Math.min(100,uv/pv*100);
@@ -306,147 +312,85 @@ function updateFillUI(){
   fb.style.background=pct>90?'#e74c3c':pct>70?'#f39c12':'#1D9E75';
 }
 
-function resize(){
-  const w=wrap.clientWidth, h=wrap.clientHeight||500;
-  renderer.setSize(w,h,false);
-  camera.aspect=w/h; camera.updateProjectionMatrix();
-}
-
-function updateCamera(){
-  const x=camRadius*Math.cos(camPhi)*Math.sin(camTheta);
-  const y=camRadius*Math.sin(camPhi);
-  const z=camRadius*Math.cos(camPhi)*Math.cos(camTheta);
-  camera.position.set(camTarget.x+x,camTarget.y+y,camTarget.z+z);
-  camera.lookAt(camTarget);
-}
+function resize(){ const w=wrap.clientWidth,h=wrap.clientHeight||500; renderer.setSize(w,h,false); camera.aspect=w/h; camera.updateProjectionMatrix(); }
+function updateCamera(){ const x=camRadius*Math.cos(camPhi)*Math.sin(camTheta),y=camRadius*Math.sin(camPhi),z=camRadius*Math.cos(camPhi)*Math.cos(camTheta); camera.position.set(camTarget.x+x,camTarget.y+y,camTarget.z+z); camera.lookAt(camTarget); }
 
 const raycaster=new THREE.Raycaster();
-function getNorm(e){
-  const r=canvas.getBoundingClientRect();
-  return new THREE.Vector2(((e.clientX-r.left)/r.width)*2-1,-((e.clientY-r.top)/r.height)*2+1);
-}
-function hitFloor(nm){
-  raycaster.setFromCamera(nm,camera);
-  const h=raycaster.intersectObject(floorMesh);
-  return h.length?h[0].point:null;
-}
-function hitItems(nm){
-  raycaster.setFromCamera(nm,camera);
-  const h=raycaster.intersectObjects(placedItems);
-  return h.length?h[0].object:null;
-}
+function getNorm(e){ const r=canvas.getBoundingClientRect(); return new THREE.Vector2(((e.clientX-r.left)/r.width)*2-1,-((e.clientY-r.top)/r.height)*2+1); }
+function hitFloor(nm){ raycaster.setFromCamera(nm,camera); const h=raycaster.intersectObject(floorMesh); return h.length?h[0].point:null; }
+function hitItems(nm){ raycaster.setFromCamera(nm,camera); const h=raycaster.intersectObjects(placedItems); return h.length?h[0].object:null; }
 
 let ghost=null;
 canvas.addEventListener('mousemove',e=>{
-  if(isOrbiting){
-    const dx=e.clientX-prevMouse.x, dy=e.clientY-prevMouse.y;
-    camTheta-=dx*0.007;
-    camPhi=Math.max(0.08,Math.min(Math.PI/2-0.05,camPhi-dy*0.006));
-    prevMouse={x:e.clientX,y:e.clientY};
-    updateCamera(); return;
-  }
+  if(isOrbiting){ const dx=e.clientX-prevMouse.x,dy=e.clientY-prevMouse.y; camTheta-=dx*0.007; camPhi=Math.max(0.08,Math.min(Math.PI/2-0.05,camPhi-dy*0.006)); prevMouse={x:e.clientX,y:e.clientY}; updateCamera(); return; }
   if(!selectedType||!floorMesh){if(ghost)ghost.visible=false;return;}
   const pt=hitFloor(getNorm(e));
   if(pt){
-    const wFt=+document.getElementById('sp-w').value||pendingW;
-    const dFt=+document.getElementById('sp-d').value||pendingD;
-    const hFt=+document.getElementById('sp-h').value||pendingH;
-    const def=DEFS[selectedType];
-    const dims=getRotatedDims(wFt,dFt,hFt,0);
-    const L=podL*SC,W=podW*SC;
+    const wIn=+document.getElementById('sp-w').value, dIn=+document.getElementById('sp-d').value, hIn=+document.getElementById('sp-h').value;
+    const dims=getRotatedDims(wIn,dIn,hIn,0);
+    const L=podL*12*SC,W=podW*12*SC;
     let x=Math.max(-L/2+dims.w/2,Math.min(L/2-dims.w/2,pt.x));
     let z=Math.max(-W/2+dims.d/2,Math.min(W/2-dims.d/2,pt.z));
     const stackY=getStackHeight(x,z,dims.w,dims.d,null);
-    if(!ghost||ghost.userData.gtype!==selectedType||ghost.userData.gw!==wFt||ghost.userData.gd!==dFt||ghost.userData.gh!==hFt){
+    if(!ghost||ghost.userData.gtype!==selectedType||ghost.userData.gw!==wIn||ghost.userData.gd!==dIn||ghost.userData.gh!==hIn){
       if(ghost)scene.remove(ghost);
-      ghost=makeMesh(wFt,dFt,hFt,def.color,0);
-      ghost.material.transparent=true; ghost.material.opacity=0.4;
-      ghost.userData={gtype:selectedType,gw:wFt,gd:dFt,gh:hFt};
-      scene.add(ghost);
+      ghost=makeMesh(wIn,dIn,hIn,DEFS[selectedType].color,0);
+      ghost.material.transparent=true; ghost.material.opacity=0.38;
+      ghost.userData={gtype:selectedType,gw:wIn,gd:dIn,gh:hIn}; scene.add(ghost);
     }
-    ghost.position.set(x,stackY+dims.h/2,z);
-    ghost.visible=true;
+    ghost.position.set(x,stackY+dims.h/2,z); ghost.visible=true;
   } else if(ghost){ghost.visible=false;}
 });
 
 canvas.addEventListener('mousedown',e=>{
   if(e.button===2){isOrbiting=true;prevMouse={x:e.clientX,y:e.clientY};return;}
-  if(!selectedType){
-    const hit=hitItems(getNorm(e));
-    selectObj(hit||null); return;
-  }
+  if(!selectedType){const hit=hitItems(getNorm(e));selectObj(hit||null);return;}
   const pt=hitFloor(getNorm(e));
-  if(pt){
-    const wFt=+document.getElementById('sp-w').value||pendingW;
-    const dFt=+document.getElementById('sp-d').value||pendingD;
-    const hFt=+document.getElementById('sp-h').value||pendingH;
-    placeItem(selectedType,wFt,dFt,hFt,pt.x,pt.z);
-  }
+  if(pt){ placeItem(selectedType,+document.getElementById('sp-w').value,+document.getElementById('sp-d').value,+document.getElementById('sp-h').value,pt.x,pt.z); }
 });
 canvas.addEventListener('mouseup',()=>{isOrbiting=false;});
 canvas.addEventListener('contextmenu',e=>e.preventDefault());
-canvas.addEventListener('wheel',e=>{
-  camRadius=Math.max(3,Math.min(60,camRadius+e.deltaY*0.04));
-  updateCamera(); e.preventDefault();
-},{passive:false});
+canvas.addEventListener('wheel',e=>{camRadius=Math.max(3,Math.min(60,camRadius+e.deltaY*0.04));updateCamera();e.preventDefault();},{passive:false});
 
 document.querySelectorAll('.item-btn').forEach(btn=>{
   btn.addEventListener('click',()=>{
     const type=btn.dataset.type;
-    if(selectedType===type){
-      selectedType=null;
-      btn.classList.remove('selected');
-      document.getElementById('size-panel').classList.remove('visible');
-      if(ghost){scene.remove(ghost);ghost=null;}
-    } else {
-      selectedType=type;
-      document.querySelectorAll('.item-btn').forEach(b=>b.classList.remove('selected'));
-      btn.classList.add('selected');
-      selectObj(null);
+    if(selectedType===type){ selectedType=null; btn.classList.remove('selected'); document.getElementById('size-panel').classList.remove('visible'); if(ghost){scene.remove(ghost);ghost=null;} }
+    else {
+      selectedType=type; document.querySelectorAll('.item-btn').forEach(b=>b.classList.remove('selected')); btn.classList.add('selected'); selectObj(null);
       const def=DEFS[type];
-      pendingW=def.w; pendingD=def.d; pendingH=def.h;
       document.getElementById('sp-title').textContent='Size: '+def.label;
-      document.getElementById('sp-w').value=def.w;
-      document.getElementById('sp-d').value=def.d;
-      document.getElementById('sp-h').value=def.h;
+      document.getElementById('sp-w').value=def.w; document.getElementById('sp-d').value=def.d; document.getElementById('sp-h').value=def.h;
       document.getElementById('size-panel').classList.add('visible');
       if(ghost){scene.remove(ghost);ghost=null;}
     }
   });
 });
 
-document.getElementById('apply-pod').addEventListener('click',()=>{
-  podL=+document.getElementById('pod-l').value||16;
-  podW=+document.getElementById('pod-w').value||8;
-  podH=+document.getElementById('pod-h').value||8;
-  buildPod();
-});
+document.getElementById('apply-pod').addEventListener('click',()=>{ podL=+document.getElementById('pod-l').value||16; podW=+document.getElementById('pod-w').value||8; podH=+document.getElementById('pod-h').value||8; buildPod(); });
 
 document.getElementById('rot-btn').addEventListener('click',()=>{
   if(!selectedObj) return;
-  const ud=selectedObj.userData;
-  const newRot=(ud.rotY+Math.PI/2)%(Math.PI*2);
-  ud.rotY=newRot;
-  selectedObj.rotation.y=newRot;
-  const dims=getRotatedDims(ud.wFt,ud.dFt,ud.hFt,newRot);
-  const L=podL*SC,W=podW*SC,tk=0.05;
+  const ud=selectedObj.userData, newRot=(ud.rotY+Math.PI/2)%(Math.PI*2);
+  ud.rotY=newRot; selectedObj.rotation.y=newRot;
+  const dims=getRotatedDims(ud.wIn,ud.dIn,ud.hIn,newRot);
+  const L=podL*12*SC,W=podW*12*SC;
   let x=Math.max(-L/2+dims.w/2,Math.min(L/2-dims.w/2,selectedObj.position.x));
   let z=Math.max(-W/2+dims.d/2,Math.min(W/2-dims.d/2,selectedObj.position.z));
   const stackY=getStackHeight(x,z,dims.w,dims.d,selectedObj);
   selectedObj.position.set(x,stackY+dims.h/2,z);
+  const sprite=labelSprites.get(selectedObj);
+  if(sprite) sprite.position.set(x,selectedObj.position.y+dims.h/2+0.22,z);
 });
 
-document.getElementById('del-btn').addEventListener('click',()=>{
-  if(!selectedObj) return;
-  scene.remove(selectedObj);
-  placedItems=placedItems.filter(m=>m!==selectedObj);
-  selectObj(null); updateFillUI();
-});
+document.getElementById('del-btn').addEventListener('click',()=>{ if(!selectedObj) return; removeItem(selectedObj); selectObj(null); });
 
-function animate(){requestAnimationFrame(animate);renderer.render(scene,camera);}
+window.addEventListener('keydown',e=>{ if((e.key==='Delete'||e.key==='Backspace')&&selectedObj&&!e.target.matches('input')){ removeItem(selectedObj); selectObj(null); } });
+
+function animate(){ requestAnimationFrame(animate); labelSprites.forEach(sprite=>sprite.quaternion.copy(camera.quaternion)); renderer.render(scene,camera); }
 
 resize(); buildPod(); updateCamera(); animate();
-window.addEventListener('resize', resize);
+window.addEventListener('resize',resize);
 </script>
 </body>
 </html>
