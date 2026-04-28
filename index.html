@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Moving Pod 3D Simulator</title>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="index_files/three.min.js"></script>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0f0f1a; color: #e0e0e0; height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
@@ -15,15 +15,32 @@
   }
   #top-bar label { font-size: 12px; color: #aaa; }
   #top-bar input[type=number] { width: 52px; font-size: 12px; padding: 3px 5px; border: 1px solid #3a3a55; border-radius: 4px; background: #111122; color: #e0e0e0; }
-  #top-bar button { font-size: 12px; padding: 4px 10px; border: 1px solid #3a3a55; border-radius: 4px; background: #1c1c2e; color: #e0e0e0; cursor: pointer; }
+  #top-bar button { font-size: 12px; padding: 4px 10px; border: 1px solid #3a3a55; border-radius: 4px; background: #1c1c2e; color: #e0e0e0; cursor: pointer; white-space: nowrap; }
   #top-bar button:hover { background: #2a2a44; }
-  .sep { width: 1px; height: 22px; background: #2a2a44; margin: 0 4px; }
+  .sep { width: 1px; height: 22px; background: #2a2a44; margin: 0 4px; flex-shrink: 0; }
   #sel-row { display: flex; gap: 5px; align-items: center; }
   #sel-label { font-size: 12px; color: #7ab4f5; font-weight: 600; }
-  .act-btn { font-size: 11px; padding: 3px 8px; border: 1px solid #3a3a55; border-radius: 4px; background: #1c1c2e; color: #e0e0e0; cursor: pointer; display: none; }
+  .act-btn { font-size: 11px; padding: 3px 8px; border: 1px solid #3a3a55; border-radius: 4px; background: #1c1c2e; color: #e0e0e0; cursor: pointer; display: none; white-space: nowrap; }
   .act-btn:hover { background: #2a2a44; }
   .act-btn.danger { border-color: #c0392b; color: #e74c3c; }
   .act-btn.danger:hover { background: #2a1010; }
+
+  /* Save/Load buttons */
+  #btn-save { border-color: #1a7a4a; color: #2ecc71; }
+  #btn-save:hover { background: #0d2a1a; }
+  #btn-load { border-color: #1a4a7a; color: #5ba4e0; }
+  #btn-load:hover { background: #0d1a2a; }
+  #btn-clear { border-color: #5a3a1a; color: #e0853a; }
+  #btn-clear:hover { background: #2a1a0d; }
+
+  /* Toast notification */
+  #toast {
+    position: fixed; bottom: 50px; left: 50%; transform: translateX(-50%);
+    background: #1a3a1a; border: 1px solid #2ecc71; color: #2ecc71;
+    padding: 8px 18px; border-radius: 6px; font-size: 12px; font-weight: 500;
+    opacity: 0; transition: opacity 0.3s; pointer-events: none; z-index: 100;
+  }
+  #toast.show { opacity: 1; }
 
   #main { display: flex; flex: 1; overflow: hidden; }
 
@@ -47,6 +64,18 @@
   #place-btn { width: 100%; font-size: 12px; padding: 5px 0; border: 1px solid #378ADD; border-radius: 5px; background: #0d2040; color: #7ab4f5; cursor: pointer; font-weight: 600; margin-top: 6px; }
   #place-btn:hover { background: #1a3a60; }
 
+  /* Session info panel */
+  #session-panel { margin: 0 8px 8px; padding: 9px; background: #0d0d20; border: 1px solid #2a2a44; border-radius: 6px; }
+  #session-panel .sp-title { font-size: 10px; font-weight: 600; color: #666; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
+  #session-name-input { width: 100%; font-size: 12px; padding: 4px 6px; border: 1px solid #3a3a55; border-radius: 4px; background: #111122; color: #e0e0e0; margin-bottom: 6px; }
+  #session-name-input:focus { outline: none; border-color: #378ADD; }
+  .sess-btn-row { display: flex; gap: 5px; }
+  .sess-btn { flex: 1; font-size: 11px; padding: 4px 0; border-radius: 4px; cursor: pointer; font-weight: 500; border: 1px solid; }
+  #sess-save-btn { border-color: #1a7a4a; color: #2ecc71; background: #0d2a1a; }
+  #sess-save-btn:hover { background: #143d20; }
+  #sess-load-btn { border-color: #1a4a7a; color: #5ba4e0; background: #0d1a2a; }
+  #sess-load-btn:hover { background: #142035; }
+
   #canvas-wrap { flex: 1; position: relative; background: #0c0c1a; }
   canvas { display: block; width: 100% !important; height: 100% !important; }
 
@@ -57,13 +86,19 @@
   #fill-pct { font-weight: 600; color: #ccc; min-width: 34px; }
   #hint { font-size: 11px; color: #555; }
   strong { color: #ccc; }
+  #session-status { font-size: 11px; color: #555; font-style: italic; }
 
   ::-webkit-scrollbar { width: 5px; }
   ::-webkit-scrollbar-track { background: #0d0d20; }
   ::-webkit-scrollbar-thumb { background: #2a2a44; border-radius: 3px; }
+
+  #load-input { display: none; }
 </style>
 </head>
 <body>
+
+<div id="toast"></div>
+<input type="file" id="load-input" accept=".json">
 
 <div id="top-bar">
   <label>Pod L</label><input type="number" id="pod-l" value="16" min="4" max="53"> ft
@@ -81,6 +116,17 @@
 <div id="main">
   <div id="sidebar">
     <div id="sidebar-inner">
+
+      <!-- Session save/load -->
+      <div id="session-panel">
+        <div class="sp-title">💾 Session</div>
+        <input type="text" id="session-name-input" placeholder="Session name (optional)" maxlength="60">
+        <div class="sess-btn-row">
+          <button class="sess-btn" id="sess-save-btn">⬇ Save File</button>
+          <button class="sess-btn" id="sess-load-btn">⬆ Load File</button>
+        </div>
+      </div>
+
       <h3>Boxes</h3>
       <button class="item-btn" data-type="box-s"><span class="item-swatch" style="background:#F0997B"></span><span class="item-label">Small Box</span><span class="item-dims">18×18×18"</span></button>
       <button class="item-btn" data-type="box-m"><span class="item-swatch" style="background:#D85A30"></span><span class="item-label">Medium Box</span><span class="item-dims">24×24×24"</span></button>
@@ -106,17 +152,18 @@
       <button id="place-btn">Click pod floor to place ↓</button>
     </div>
   </div>
-  <div id="canvas-wrap"><canvas id="c"></canvas></div>
+  <div id="canvas-wrap"><canvas id="c" width="2624" height="1836"></canvas></div>
 </div>
 
 <div id="info-bar">
   <span>Pod: <strong id="pod-vol">1024</strong> ft³</span>
-  <span>Used: <strong id="used-vol">0</strong> ft³</span>
+  <span>Used: <strong id="used-vol">0.0</strong> ft³</span>
   <div class="fill-bar-wrap">
-    <div id="fill-bar-bg"><div id="fill-bar" style="width:0%"></div></div>
+    <div id="fill-bar-bg"><div id="fill-bar" style="width: 0%; background: rgb(29, 158, 117);"></div></div>
     <span id="fill-pct">0%</span>
   </div>
-  <span id="hint">Select item → set inches → click pod to place | Right-click drag = orbit | Scroll = zoom | Delete key = remove selected</span>
+  <span id="session-status">No session loaded</span>
+  <span id="hint">Select item → set inches → click pod to place | Right-click drag = orbit | Scroll = zoom | Delete = remove selected</span>
 </div>
 
 <script>
@@ -144,7 +191,21 @@ let isOrbiting=false, prevMouse={x:0,y:0};
 let camTheta=0.8, camPhi=0.55, camRadius=22;
 let camTarget=new THREE.Vector3(0,2,0);
 const labelSprites=new Map();
+let currentSessionName='';
 
+// ── Toast ──────────────────────────────────────────────
+function showToast(msg, isError=false){
+  const t=document.getElementById('toast');
+  t.textContent=msg;
+  t.style.background=isError?'#3a1a1a':'#1a3a1a';
+  t.style.borderColor=isError?'#e74c3c':'#2ecc71';
+  t.style.color=isError?'#e74c3c':'#2ecc71';
+  t.classList.add('show');
+  clearTimeout(t._timer);
+  t._timer=setTimeout(()=>t.classList.remove('show'),2500);
+}
+
+// ── Three.js setup ─────────────────────────────────────
 const wrap=document.getElementById('canvas-wrap');
 const canvas=document.getElementById('c');
 const renderer=new THREE.WebGLRenderer({canvas,antialias:true});
@@ -154,14 +215,13 @@ renderer.shadowMap.enabled=true;
 const scene=new THREE.Scene();
 scene.background=new THREE.Color(0x0c0c1a);
 scene.fog=new THREE.FogExp2(0x0c0c1a,0.013);
-
 const camera=new THREE.PerspectiveCamera(45,1,0.1,300);
 
 scene.add(new THREE.AmbientLight(0xffffff,0.65));
 const dir=new THREE.DirectionalLight(0xffffff,0.9);
 dir.position.set(12,22,12); dir.castShadow=true; scene.add(dir);
-const fill=new THREE.DirectionalLight(0x4466bb,0.3);
-fill.position.set(-10,6,-10); scene.add(fill);
+const fillLight=new THREE.DirectionalLight(0x4466bb,0.3);
+fillLight.position.set(-10,6,-10); scene.add(fillLight);
 
 const ground=new THREE.Mesh(new THREE.PlaneGeometry(100,100),new THREE.MeshStandardMaterial({color:0x0d0d1e,roughness:0.95}));
 ground.rotation.x=-Math.PI/2; ground.receiveShadow=true; scene.add(ground);
@@ -170,6 +230,7 @@ scene.add(new THREE.GridHelper(100,100,0x1e1e38,0x17172e));
 let podGroup=new THREE.Group(); scene.add(podGroup);
 let floorMesh=null;
 
+// ── Pod ────────────────────────────────────────────────
 function buildPod(){
   while(podGroup.children.length) podGroup.remove(podGroup.children[0]);
   const L=podL*12*SC, W=podW*12*SC, H=podH*12*SC, tk=0.05;
@@ -188,6 +249,7 @@ function buildPod(){
   updateFillUI();
 }
 
+// ── Labels ─────────────────────────────────────────────
 function makeLabel(text, colorHex){
   const cw=256, ch=64;
   const cv=document.createElement('canvas'); cv.width=cw; cv.height=ch;
@@ -195,14 +257,12 @@ function makeLabel(text, colorHex){
   const hex='#'+colorHex.toString(16).padStart(6,'0');
   ctx.fillStyle=hex+'cc';
   const r=12;
-  ctx.beginPath();
-  ctx.moveTo(r,0); ctx.lineTo(cw-r,0);
+  ctx.beginPath(); ctx.moveTo(r,0); ctx.lineTo(cw-r,0);
   ctx.quadraticCurveTo(cw,0,cw,r); ctx.lineTo(cw,ch-r);
   ctx.quadraticCurveTo(cw,ch,cw-r,ch); ctx.lineTo(r,ch);
   ctx.quadraticCurveTo(0,ch,0,ch-r); ctx.lineTo(0,r);
   ctx.quadraticCurveTo(0,0,r,0); ctx.closePath(); ctx.fill();
-  ctx.fillStyle='#ffffff';
-  ctx.font='bold 26px Arial,sans-serif';
+  ctx.fillStyle='#ffffff'; ctx.font='bold 26px Arial,sans-serif';
   ctx.textAlign='center'; ctx.textBaseline='middle';
   ctx.shadowColor='rgba(0,0,0,0.6)'; ctx.shadowBlur=4;
   ctx.fillText(text, cw/2, ch/2);
@@ -213,6 +273,24 @@ function makeLabel(text, colorHex){
   return sprite;
 }
 
+function refreshLabels(){
+  const typeCounts={}, totalPerType={};
+  placedItems.forEach(m=>{ totalPerType[m.userData.type]=(totalPerType[m.userData.type]||0)+1; });
+  placedItems.forEach(m=>{
+    const ud=m.userData, t=ud.type;
+    typeCounts[t]=(typeCounts[t]||0)+1;
+    ud.instanceNum=typeCounts[t];
+    const labelText=totalPerType[t]>1 ? ud.def.label+' '+ud.instanceNum : ud.def.label;
+    ud.labelText=labelText;
+    const old=labelSprites.get(m); if(old) scene.remove(old);
+    const dims=getRotatedDims(ud.wIn,ud.dIn,ud.hIn,ud.rotY);
+    const sprite=makeLabel(labelText, ud.colorHex);
+    sprite.position.set(m.position.x, m.position.y+dims.h/2+0.22, m.position.z);
+    scene.add(sprite); labelSprites.set(m,sprite);
+  });
+}
+
+// ── Geometry helpers ───────────────────────────────────
 function getRotatedDims(wIn,dIn,hIn,rotY){
   const w=wIn*SC, d=dIn*SC, h=hIn*SC;
   const r=((rotY||0)%(Math.PI*2)+Math.PI*2)%(Math.PI*2);
@@ -224,8 +302,7 @@ function getStackHeight(cx,cz,ew,ed,excludeMesh){
   let maxTop=0.05;
   placedItems.forEach(m=>{
     if(m===excludeMesh) return;
-    const ud=m.userData;
-    const dims=getRotatedDims(ud.wIn,ud.dIn,ud.hIn,ud.rotY);
+    const ud=m.userData, dims=getRotatedDims(ud.wIn,ud.dIn,ud.hIn,ud.rotY);
     const mTop=m.position.y+dims.h/2;
     const ox=Math.abs(cx-m.position.x)-(dims.w/2+ew/2);
     const oz=Math.abs(cz-m.position.z)-(dims.d/2+ed/2);
@@ -245,32 +322,14 @@ function makeMesh(wIn,dIn,hIn,color,rotY){
   return mesh;
 }
 
-function refreshLabels(){
-  const typeCounts={}, totalPerType={};
-  placedItems.forEach(m=>{ totalPerType[m.userData.type]=(totalPerType[m.userData.type]||0)+1; });
-  placedItems.forEach(m=>{
-    const ud=m.userData, t=ud.type;
-    typeCounts[t]=(typeCounts[t]||0)+1;
-    ud.instanceNum=typeCounts[t];
-    const labelText=totalPerType[t]>1 ? ud.def.label+' '+ud.instanceNum : ud.def.label;
-    ud.labelText=labelText;
-    const old=labelSprites.get(m);
-    if(old) scene.remove(old);
-    const dims=getRotatedDims(ud.wIn,ud.dIn,ud.hIn,ud.rotY);
-    const sprite=makeLabel(labelText, ud.colorHex);
-    sprite.position.set(m.position.x, m.position.y+dims.h/2+0.22, m.position.z);
-    scene.add(sprite);
-    labelSprites.set(m,sprite);
-  });
-}
-
-function placeItem(type,wIn,dIn,hIn,nx,nz){
-  const def=DEFS[type], rotY=0;
+// ── Place / Remove ─────────────────────────────────────
+function placeItem(type,wIn,dIn,hIn,nx,nz,rotY,posY){
+  const def=DEFS[type]; rotY=rotY||0;
   const dims=getRotatedDims(wIn,dIn,hIn,rotY);
   const L=podL*12*SC, W=podW*12*SC;
   let x=Math.max(-L/2+dims.w/2,Math.min(L/2-dims.w/2,nx));
   let z=Math.max(-W/2+dims.d/2,Math.min(W/2-dims.d/2,nz));
-  const stackY=getStackHeight(x,z,dims.w,dims.d,null);
+  const stackY=(posY!==undefined) ? posY : getStackHeight(x,z,dims.w,dims.d,null);
   const mesh=makeMesh(wIn,dIn,hIn,def.color,rotY);
   mesh.position.set(x,stackY+dims.h/2,z);
   mesh.userData={type,wIn,dIn,hIn,rotY,def,colorHex:def.color,instanceNum:0,labelText:''};
@@ -281,25 +340,28 @@ function placeItem(type,wIn,dIn,hIn,nx,nz){
 
 function removeItem(mesh){
   scene.remove(mesh);
-  const sprite=labelSprites.get(mesh);
-  if(sprite) scene.remove(sprite);
+  const sprite=labelSprites.get(mesh); if(sprite) scene.remove(sprite);
   labelSprites.delete(mesh);
   placedItems=placedItems.filter(m=>m!==mesh);
   refreshLabels(); updateFillUI();
 }
 
+function clearAll(){
+  [...placedItems].forEach(m=>removeItem(m));
+  selectObj(null);
+}
+
+// ── Selection ──────────────────────────────────────────
 function selectObj(obj){
   if(selectedObj&&selectedObj!==obj) selectedObj.material.emissive&&selectedObj.material.emissive.setHex(0);
   selectedObj=obj;
   const sl=document.getElementById('sel-label');
   const rb=document.getElementById('rot-btn'), db=document.getElementById('del-btn');
-  if(obj){
-    obj.material.emissive.setHex(0x443300);
-    sl.textContent=obj.userData.labelText||DEFS[obj.userData.type].label;
-    rb.style.display=db.style.display='';
-  } else { sl.textContent=''; rb.style.display=db.style.display='none'; }
+  if(obj){ obj.material.emissive.setHex(0x443300); sl.textContent=obj.userData.labelText||DEFS[obj.userData.type].label; rb.style.display=db.style.display=''; }
+  else { sl.textContent=''; rb.style.display=db.style.display='none'; }
 }
 
+// ── Fill UI ────────────────────────────────────────────
 function updateFillUI(){
   const pv=podL*podW*podH; let uv=0;
   placedItems.forEach(m=>{const u=m.userData; uv+=(u.wIn/12)*(u.dIn/12)*(u.hIn/12);});
@@ -308,18 +370,92 @@ function updateFillUI(){
   const pct=Math.min(100,uv/pv*100);
   document.getElementById('fill-pct').textContent=Math.round(pct)+'%';
   const fb=document.getElementById('fill-bar');
-  fb.style.width=pct+'%';
-  fb.style.background=pct>90?'#e74c3c':pct>70?'#f39c12':'#1D9E75';
+  fb.style.width=pct+'%'; fb.style.background=pct>90?'#e74c3c':pct>70?'#f39c12':'#1D9E75';
 }
 
+// ── Save Session ───────────────────────────────────────
+function saveSession(){
+  const name=document.getElementById('session-name-input').value.trim()||'my-pod-layout';
+  const data={
+    version:1,
+    sessionName: name,
+    savedAt: new Date().toISOString(),
+    pod:{ L:podL, W:podW, H:podH },
+    items: placedItems.map(m=>{
+      const ud=m.userData;
+      return {
+        type: ud.type,
+        wIn: ud.wIn, dIn: ud.dIn, hIn: ud.hIn,
+        rotY: ud.rotY,
+        x: m.position.x, y: m.position.y, z: m.position.z
+      };
+    })
+  };
+  const json=JSON.stringify(data, null, 2);
+  const blob=new Blob([json],{type:'application/json'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;
+  a.download=(name.replace(/\s+/g,'-').replace(/[^a-zA-Z0-9\-_]/g,''))+'.json';
+  a.click();
+  URL.revokeObjectURL(url);
+  currentSessionName=name;
+  document.getElementById('session-status').textContent='Session: '+name+' (saved '+new Date().toLocaleTimeString()+')';
+  showToast('✓ Session saved as '+a.download);
+}
+
+// ── Load Session ───────────────────────────────────────
+function loadSession(file){
+  const reader=new FileReader();
+  reader.onload=e=>{
+    try {
+      const data=JSON.parse(e.target.result);
+      if(!data.pod||!data.items) throw new Error('Invalid file');
+
+      // Restore pod
+      podL=data.pod.L; podW=data.pod.W; podH=data.pod.H;
+      document.getElementById('pod-l').value=podL;
+      document.getElementById('pod-w').value=podW;
+      document.getElementById('pod-h').value=podH;
+      buildPod();
+
+      // Clear existing
+      clearAll();
+
+      // Restore items — use saved position Y directly (preserves stacking)
+      data.items.forEach(item=>{
+        if(!DEFS[item.type]) return;
+        const dims=getRotatedDims(item.wIn,item.dIn,item.hIn,item.rotY);
+        // posY = bottom of item = saved center Y minus half height
+        const bottomY=item.y - dims.h/2;
+        placeItem(item.type, item.wIn, item.dIn, item.hIn, item.x, item.z, item.rotY, bottomY);
+      });
+
+      // Restore session name
+      const name=data.sessionName||file.name.replace('.json','');
+      document.getElementById('session-name-input').value=name;
+      currentSessionName=name;
+      const savedAt=data.savedAt ? ' · saved '+new Date(data.savedAt).toLocaleString() : '';
+      document.getElementById('session-status').textContent='Session: '+name+savedAt;
+      showToast('✓ Loaded "'+name+'" — '+data.items.length+' item(s)');
+    } catch(err){
+      showToast('✗ Could not load file: '+err.message, true);
+    }
+  };
+  reader.readAsText(file);
+}
+
+// ── Camera ─────────────────────────────────────────────
 function resize(){ const w=wrap.clientWidth,h=wrap.clientHeight||500; renderer.setSize(w,h,false); camera.aspect=w/h; camera.updateProjectionMatrix(); }
 function updateCamera(){ const x=camRadius*Math.cos(camPhi)*Math.sin(camTheta),y=camRadius*Math.sin(camPhi),z=camRadius*Math.cos(camPhi)*Math.cos(camTheta); camera.position.set(camTarget.x+x,camTarget.y+y,camTarget.z+z); camera.lookAt(camTarget); }
 
+// ── Raycasting ─────────────────────────────────────────
 const raycaster=new THREE.Raycaster();
 function getNorm(e){ const r=canvas.getBoundingClientRect(); return new THREE.Vector2(((e.clientX-r.left)/r.width)*2-1,-((e.clientY-r.top)/r.height)*2+1); }
 function hitFloor(nm){ raycaster.setFromCamera(nm,camera); const h=raycaster.intersectObject(floorMesh); return h.length?h[0].point:null; }
 function hitItems(nm){ raycaster.setFromCamera(nm,camera); const h=raycaster.intersectObjects(placedItems); return h.length?h[0].object:null; }
 
+// ── Ghost preview ──────────────────────────────────────
 let ghost=null;
 canvas.addEventListener('mousemove',e=>{
   if(isOrbiting){ const dx=e.clientX-prevMouse.x,dy=e.clientY-prevMouse.y; camTheta-=dx*0.007; camPhi=Math.max(0.08,Math.min(Math.PI/2-0.05,camPhi-dy*0.006)); prevMouse={x:e.clientX,y:e.clientY}; updateCamera(); return; }
@@ -352,6 +488,7 @@ canvas.addEventListener('mouseup',()=>{isOrbiting=false;});
 canvas.addEventListener('contextmenu',e=>e.preventDefault());
 canvas.addEventListener('wheel',e=>{camRadius=Math.max(3,Math.min(60,camRadius+e.deltaY*0.04));updateCamera();e.preventDefault();},{passive:false});
 
+// ── Sidebar item buttons ───────────────────────────────
 document.querySelectorAll('.item-btn').forEach(btn=>{
   btn.addEventListener('click',()=>{
     const type=btn.dataset.type;
@@ -367,7 +504,13 @@ document.querySelectorAll('.item-btn').forEach(btn=>{
   });
 });
 
-document.getElementById('apply-pod').addEventListener('click',()=>{ podL=+document.getElementById('pod-l').value||16; podW=+document.getElementById('pod-w').value||8; podH=+document.getElementById('pod-h').value||8; buildPod(); });
+// ── Top bar controls ───────────────────────────────────
+document.getElementById('apply-pod').addEventListener('click',()=>{
+  podL=+document.getElementById('pod-l').value||16;
+  podW=+document.getElementById('pod-w').value||8;
+  podH=+document.getElementById('pod-h').value||8;
+  buildPod();
+});
 
 document.getElementById('rot-btn').addEventListener('click',()=>{
   if(!selectedObj) return;
@@ -387,10 +530,24 @@ document.getElementById('del-btn').addEventListener('click',()=>{ if(!selectedOb
 
 window.addEventListener('keydown',e=>{ if((e.key==='Delete'||e.key==='Backspace')&&selectedObj&&!e.target.matches('input')){ removeItem(selectedObj); selectObj(null); } });
 
+// ── Save / Load buttons ────────────────────────────────
+document.getElementById('sess-save-btn').addEventListener('click', saveSession);
+
+document.getElementById('sess-load-btn').addEventListener('click',()=>{
+  document.getElementById('load-input').value=''; // reset so same file can be reloaded
+  document.getElementById('load-input').click();
+});
+
+document.getElementById('load-input').addEventListener('change',e=>{
+  const file=e.target.files[0]; if(file) loadSession(file);
+});
+
+// ── Render loop ────────────────────────────────────────
 function animate(){ requestAnimationFrame(animate); labelSprites.forEach(sprite=>sprite.quaternion.copy(camera.quaternion)); renderer.render(scene,camera); }
 
 resize(); buildPod(); updateCamera(); animate();
 window.addEventListener('resize',resize);
 </script>
-</body>
-</html>
+
+
+</body></html>
